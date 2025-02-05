@@ -14,7 +14,6 @@ namespace InteractivePlatformForOrganizingEvents
 {
     public partial class Form1 : Form
     {
-        private DB dataBase = new DB();
         public Form1()
         {
             InitializeComponent();
@@ -24,12 +23,13 @@ namespace InteractivePlatformForOrganizingEvents
         {
             try
             {
+                DB dataBase = new DB();
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 DataTable dataTable = new DataTable();
 
                 string s1 = "Vova", s2 = "18";
 
-                string us = $"SELECT * FROM [InteractivePlatformForOrganizingEvents].[dbo].[User] WHERE (Name = '{s1}' and Age = '{s2}')";
+                string us = $"SELECT * FROM [dbo].[User] WHERE (Name = '{s1}' and Age = '{s2}')";
 
                 SqlCommand sqlCommand = new SqlCommand(us, dataBase.sqlConnectGetConnection());
 
@@ -37,10 +37,11 @@ namespace InteractivePlatformForOrganizingEvents
                 adapter.Fill(dataTable);
 
                 if (dataTable.Rows.Count == 1)
+
                 {
                     DataRow[] row = dataTable.Select();
 
-                    _ = MessageBox.Show($"Успешно!, {row[0]["idUser"]}");
+                    _ = MessageBox.Show($"Успешно!   {row[0]["id"]}");
                 }
                 else
                 {
